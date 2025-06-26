@@ -400,6 +400,15 @@
     // Load first Pokémon on page load
     loadPokemon();
 
-    // You can add a button or interval to load new Pokémon if you want
+    
+    // Retry image load if it fails
+    spriteElem.onerror = () => {
+      console.warn("Initial image failed, retrying...");
+      const baseSrc = spriteElem.src.split("?")[0];
+      spriteElem.src = baseSrc + "?retry=" + Date.now();
+    };
+
+
+  // You can add a button or interval to load new Pokémon if you want
     // Example to load new Pokémon on click anywhere on pokedex box:
     document.getElementById("pokedex").addEventListener("click", loadPokemon);
